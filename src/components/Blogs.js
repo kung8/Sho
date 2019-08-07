@@ -2,7 +2,7 @@ import React from 'react'
 
 function Blogs(){
     return(
-        <div>Blogs</div>
+        <div style={{minHeight:'calc(100vh - 330px)'}}>Blogs</div>
     )
 }
 

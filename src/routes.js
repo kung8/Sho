@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Login from './components/Login'
-import Account from './components/Account'
+import profile from './components/Profile'
 import Blogs from './components/Blogs'
 import Blog from './components/Blog'
 import Cart from './components/Cart'
@@ -14,7 +14,7 @@ import Social from './components/Social'
 export default (
     <Switch>
         <Route path='/authentication' component={Login}/>
-        <Route path='/account' component={Account}/>
+        <Route path='/profile' component={profile}/>
         <Route path='/blogs/:id' component={Blog}/>
         <Route path='/blogs' component={Blogs}/>
         <Route path='/cart' component={Cart}/>

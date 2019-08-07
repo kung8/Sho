@@ -2,7 +2,9 @@ import React from 'react'
 
 function Products(){
     return(
-        <div>Products</div>
+        <div style={{minHeight:'calc(100vh - 330px)'}}>
+            
+        </div>
     )
 }
 

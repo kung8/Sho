@@ -2,7 +2,7 @@ import React from 'react'
 
 function Login(){
     return(
-        <div>Login</div>
+        <div style={{minHeight:'calc(100vh - 330px)'}}>Login</div>
     )
 }
 

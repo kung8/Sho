@@ -2,7 +2,7 @@ import React from 'react'
 
 function Checkout(){
     return(
-        <div>Checkout</div>
+        <div style={{minHeight:'calc(100vh - 330px)'}}>Checkout</div>
     )
 }
 

@@ -19,7 +19,7 @@ function Header(props) {
 
     if (pathname === '/authentication') {
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', height: 225, fontSize: 20, color: 'white', marginBottom: 30 , width:'100vw'}}>
+            <div style={{ display: 'flex', flexDirection: 'column', height: 190, fontSize: 20, color: 'white', maxWidth:'100vw'}}>
                 <div style={{ height: 75, background: 'grey', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 </div>
                 <div style={{ display: 'flex', height: 100, alignItems: 'center', justifyContent: 'center', position: 'relative', color: 'black' }}>

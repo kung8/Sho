@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import styled from 'styled-components'
 
 function Login(props) {
     const [usernameLogin, setUsernameLogin] = useState('')
@@ -20,10 +20,9 @@ function Login(props) {
     }
 
     return (
-        <div style={{ minHeight: 'calc(100vh - 330px)', display: 'flex', flexDirection: 'column'}}>
-            {/* <h1>SHO</h1> */}
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                <div style={{ height: 400, width: 350, background: '#FAF3F3', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ minHeight: 'calc(100vh - 267px)', display: 'flex', flexDirection: 'column',maxWidth:'100vw',justifyContent:'center'}}>
+            <FormHolderContainer>
+                <FormHolder>
                     <h2 style={{ fontSize: 40, fontWeight: 800, marginTop: 20 }}>Login</h2>
                     <hr style={{ width: '75%' }} />
                     <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', height: 'calc(100% - 100px)', width: '100%' }}>
@@ -39,9 +38,9 @@ function Login(props) {
                             <button style={{width:200,height:35,borderRadius:10,fontSize:25}} onClick={login}>Login</button>
                         </div>
                     </form>
-                </div>
+                </FormHolder>
 
-                <div style={{ height: 400, width: 350, background: '#FAF3F3', display: 'flex', flexDirection: 'column', alignItems: 'center',borderRadius:10 }}>
+                <FormHolder>
                     <h2 style={{ fontSize: 40, fontWeight: 800, marginTop: 20 }}>Register</h2>
                     <hr style={{ width: '75%' }} />
                     <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', height: 'calc(100% - 100px)', width: '100%' }}>
@@ -65,10 +64,35 @@ function Login(props) {
                             <button style={{width:200,height:35,borderRadius:10,fontSize:25}} onClick={register}>Register</button>
                         </div>
                     </form>
-                </div>
-            </div>
+                </FormHolder>
+            </FormHolderContainer>
         </div>
     )
 }
 
 export default Login
+
+const FormHolderContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+    flex-direction:column;
+    align-items:center;
+    height:850px;
+    @media screen and (min-width:768px){
+        flex-direction:row;
+        height:500px;
+    }
+`
+
+const FormHolder = styled.div`
+    height: 400px;
+    width:300px;
+    background: #FAF3F3;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    box-shadow:2px 4px 7px 2px;
+    @media screen and (min-width:365px){
+        width: 350px;
+    }
+`

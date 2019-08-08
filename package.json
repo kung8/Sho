@@ -16,7 +16,8 @@
     "react-scripts": "3.0.1",
     "redux": "^4.0.4",
     "redux-persist": "^5.10.0",
-    "redux-promise-middleware": "^6.1.1"
+    "redux-promise-middleware": "^6.1.1",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",

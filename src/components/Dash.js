@@ -9,7 +9,7 @@ function Dash(props) {
     //     return <Redirect to='/authentication' />
     // } else {
         return (
-            <Body style={{}}>
+            <Body>
                 <div style={{background:'url(https://tbcdn.talentbrew.com/company/1678/v2_0/img/banner-disney-world.jpg) center no-repeat #cccccc',height:350, backgroundSize:'cover'}}></div>
                 <ImgContainer>
                     <Img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3c4iqXc68zQFOfBXrk0uPD_Yol5j9CTDsw3ojeyjqYzNjKbvGew'/>
@@ -27,6 +27,7 @@ const Body = styled.div`
     display:flex;
     flex-direction:column;
     max-width:100vw;
+    background:yellow;
     @media screen and (min-height:1366px){
         height:calc(100vh - 329px)
     }
@@ -44,6 +45,9 @@ const ImgContainer = styled.div`
         justify-content:space-around;
         align-items:center;
         height:600px;
+    }
+    @media screen and (min-height:1366px){
+        height:685px;
     }
 `
 

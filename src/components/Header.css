@@ -1,0 +1,67 @@
+.Header-Body {
+    height:225px;
+}
+
+.Top-Nav {
+    display:flex;
+}
+
+.Bottom-Nav {
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@media screen and (max-width:499px){
+    .Header-Body {
+        height:175px;
+    }
+
+    .Top-Nav {
+        display:none;
+    }
+    
+    .Bottom-Nav {
+        display:none;
+        height:0px;
+    }
+}
+
+.Hamburger {
+    margin-right:10px;
+}
+
+@media screen and (min-width:500px){
+    .Hamburger {
+        display:none;
+    }
+    
+}
+
+.DrawerOpen {
+    animation:open 1s;
+    transition-timing-function: ease-in-out; 
+    
+}
+
+.DrawerClose {
+    animation:close 1s;
+    transition-timing-function: ease-in-out
+}
+
+@keyframes open {
+    from {
+        height:0px;
+    } 
+    to {
+        height:300px;
+    }
+}
+@keyframes close {
+    from {
+        height:300px;
+    } 
+    to {
+        height:0px;
+    }
+}

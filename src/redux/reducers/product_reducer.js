@@ -5,8 +5,8 @@ const initState = {
 }
 
 export default function (prodState=initState, action){
-    const {type, payload} = action
-    switch(type){
+    // const {type, payload} = action
+    switch(action.type){
         default:
             return prodState
     }

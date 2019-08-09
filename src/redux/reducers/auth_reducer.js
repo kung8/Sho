@@ -27,8 +27,8 @@ const initState = {
 // }
 
 export default function (authState=initState, action){
-    const {type, payload} = action
-    switch(type){
+    // const {type, payload} = action
+    switch(action.type){
         default:
             return authState
     }

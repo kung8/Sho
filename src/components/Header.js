@@ -4,13 +4,21 @@ import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import './Header.css'
 
+const shirt = "fas fa-tshirt"
+const cart = "fas fa-shopping-cart"
+const insta = "fab fa-instagram"
+const profile = "fas fa-user-circle"
+const logout = "fas fa-sign-out-alt"
+const search = "fas fa-search"
+const hamburger = "fas fa-bars Hamburger"
+
 function Header(props) {
     const { pathname } = props.location
     const [hamOpened, setHamOpened] = useState(false)
 
     const handleDrawerToggle = () => {
+        let drawer = document.getElementById('Drawer')
         if (hamOpened) {
-            let drawer = document.getElementById('Drawer')
             if (drawer.classList) {
                 drawer.classList.remove('DrawerOpen')
             }
@@ -19,7 +27,6 @@ function Header(props) {
                 setHamOpened(!hamOpened)
             }, 500)
         } else {
-            let drawer = document.getElementById('Drawer')
             if (drawer.classList) {
                 drawer.classList.remove('DrawerClose')
             }
@@ -38,7 +45,7 @@ function Header(props) {
         handleDrawerToggle()
     }
 
-    const logout = () => {
+    const handleLogout = () => {
         props.history.push('/authentication')
         handleDrawerToggle()
     }
@@ -61,98 +68,115 @@ function Header(props) {
 
     }
 
-
+    const styles = {
+        fontSize: {
+            fontSize: hamOpened ? 30 : 0
+        },
+        height: {
+            height: hamOpened ? 50 : 0
+        },
+        cartHeight: {
+            height: hamOpened ? 20 : 0
+        },
+        drawerContainer:{
+            height: hamOpened ? 300 : 0 
+        }
+    }
 
     if (pathname === '/authentication') {
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', height: 190, fontSize: 20, color: 'white', maxWidth: '100vw' }}>
-                <div style={{ height: 75, background: 'grey', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                </div>
-                <div style={{ display: 'flex', height: 100, alignItems: 'center', justifyContent: 'center', position: 'relative', color: 'black' }}>
-                    <h1 style={{ fontSize: 40 }}>SHO</h1>
-                </div>
-            </div>
+            <AuthBody>
+                <AuthHeader></AuthHeader>
+                <AuthMain>
+                    <Logo>SHO</Logo>
+                </AuthMain>
+            </AuthBody>
         )
     } else {
         return (
-            <div className='Header-Body' style={{ display: 'flex', flexDirection: 'column', fontSize: 20, color: 'white', marginBottom: 30, maxWidth: '100vw', width: '100vw', position: 'relative' }}>
-                <div style={{ height: 75, background: 'grey', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ marginLeft: 20 }}>
+            <MainBody className='Header-Body'>
+                <TopContainer>
+                    <TopUsername>
                         <h1>username</h1>
-                    </div>
-                    <i className="fas fa-bars Hamburger" onClick={() => handleDrawerToggle()}></i>
+                    </TopUsername>
+                    <i className={hamburger} onClick={() => handleDrawerToggle()}></i>
                     <TopNavBar className='Top-Nav'>
-                        <div onClick={() => props.history.push('/cart')} style={{ textAlign: 'center', position: 'relative' }}>
-                            <i style={{ fontSize: 30 }} className="fas fa-shopping-cart"></i>
+                        <TopNavLink onClick={() => props.history.push('/cart')}>
+                            <TopNavIcon className={cart}></TopNavIcon>
                             <h1>cart</h1>
-                            <div style={{ background: '#ff0000', position: 'absolute', top: -8, right: -5, borderRadius: '50%', height: 20, width: 20 }}>4</div>
-                        </div>
-                        <div onClick={() => props.history.push('/profile')} style={{ textAlign: 'center' }}>
-                            <i style={{ fontSize: 30 }} className="fas fa-user-circle"></i>
+                            <DrawerCartNum style={{ right: -5 }}>4</DrawerCartNum>
+                        </TopNavLink>
+                        <TopNavLink onClick={() => props.history.push('/profile')}>
+                            <TopNavIcon className={profile}></TopNavIcon>
                             <h1>profile</h1>
-                        </div>
-                        <div onClick={() => props.history.push('/authentication')} style={{ textAlign: 'center' }}>
-                            <i style={{ fontSize: 30 }} className="fas fa-sign-out-alt"></i>
+                        </TopNavLink>
+                        <TopNavLink onClick={() => props.history.push('/authentication')}>
+                            <TopNavIcon className={logout}></TopNavIcon>
                             <h1>logout</h1>
-                        </div>
+                        </TopNavLink>
                     </TopNavBar>
-                </div>
+                </TopContainer>
 
-                <div id='Drawer' style={{ height: hamOpened ? 300 : 0, position: 'absolute', top: 70, display: 'flex', flexDirection: 'column', right: 0, width: '100vw', background: 'blue', marginBottom: 70, zIndex: 1, alignItems: 'center' }}>
-                    <div onClick={viewCart} style={{ height: hamOpened ? 50 : 0, display: 'flex', textAlign: 'center', position: 'relative', color: pathname === '/cart' || pathname === '/checkout' ? 'black' : 'lightgrey' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', position: 'absolute', left: -50, top: 10 }}>
-                            <i style={{ fontSize: hamOpened ? 30 : 0 }} className="fas fa-shopping-cart"></i>
-                            <h1 style={{ fontSize: hamOpened ? 30 : 0, marginLeft: 15 }}>Cart</h1>
-                            <div style={{ background: '#ff0000', position: 'absolute', top: -8, right: 60, borderRadius: '50%', height: hamOpened ? 20 : 0, width: 20 }}>{hamOpened && 4}</div>
-                        </div>
-
-                    </div>
-                    <div onClick={viewProducts} style={{ height: hamOpened ? 50 : 0, color: pathname === '/products' ? 'black' : 'lightgrey', display: 'flex', position: 'relative', textAlign: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', position: 'absolute', left: -50, top: 10 }}>
-                            <i style={{ fontSize: hamOpened ? 30 : 0 }} className="fas fa-tshirt"></i>
-                            <h1 style={{ fontSize: hamOpened ? 30 : 0, marginLeft: 15 }}>Products</h1>
-                        </div>
-                    </div>
-                    <div onClick={viewSocial} style={{ height: hamOpened ? 50 : 0, color: pathname === '/social' ? 'black' : 'lightgrey', display: 'flex', position: 'relative', textAlign: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', position: 'absolute', left: -50, top: 10 }}>
-                            <i style={{ fontSize: hamOpened ? 30 : 0 }} className="fab fa-instagram"></i>
-                            <h1 style={{ fontSize: hamOpened ? 30 : 0, marginLeft: 15 }}>Social</h1>
-                        </div>
-                    </div>
-                    <div onClick={viewBlogs} style={{ height: hamOpened ? 50 : 0, color: pathname === '/blogs' ? 'black' : 'lightgrey', display: 'flex', position: 'relative', textAlign: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', position: 'absolute', left: -50, top: 10 }}>
-                            <i style={{ fontSize: hamOpened ? 30 : 0 }} className="fas fa-tshirt"></i>
-                            <h1 style={{ fontSize: hamOpened ? 30 : 0, marginLeft: 15 }}>Blogs</h1>
-                        </div>
-                    </div>
-                    <div onClick={viewProfile} style={{ height: hamOpened ? 50 : 0, display: 'flex', position: 'relative', textAlign: 'center', color: pathname === '/profile' ? 'black' : 'lightgrey' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', position: 'absolute', left: -50, top: 10 }}>
-                            <i style={{ fontSize: hamOpened ? 30 : 0 }} className="fas fa-user-circle"></i>
-                            <h1 style={{ fontSize: hamOpened ? 30 : 0, marginLeft: 15 }}>Profile</h1>
-                        </div>
-                    </div>
-                    <div onClick={logout} style={{ height: hamOpened ? 50 : 0, display: 'flex', position: 'relative', textAlign: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', position: 'absolute', left: -50, top: 10 }}>
-                            <i style={{ fontSize: hamOpened ? 30 : 0 }} className="fas fa-sign-out-alt"></i>
-                            <h1 style={{ fontSize: hamOpened ? 30 : 0, marginLeft: 15 }}>logout</h1>
-                        </div>
-                    </div>
-                </div>
+                <DrawerContainer id='Drawer' style={styles.drawerContainer}>
+                    <Drawer onClick={viewCart} style={{ ...styles.height, color: pathname === '/cart' || pathname === '/checkout' ? 'black' : 'lightgrey' }}>
+                        <DrawerLinkHolder>
+                            <i style={styles.fontSize} className={cart}></i>
+                            <DrawerLinkName style={styles.fontSize}>Cart</DrawerLinkName>
+                            <DrawerCartNum style={styles.cartHeight}>{hamOpened && 4}</DrawerCartNum>
+                        </DrawerLinkHolder>
+                    </Drawer>
+                    <Drawer onClick={viewProducts} style={{ ...styles.height, color: pathname === '/products' ? 'black' : 'lightgrey' }}>
+                        <DrawerLinkHolder>
+                            <i style={styles.fontSize} className={shirt}></i>
+                            <DrawerLinkName style={styles.fontSize}>Products</DrawerLinkName>
+                        </DrawerLinkHolder>
+                    </Drawer>
+                    <Drawer onClick={viewSocial} style={{ ...styles.height, color: pathname === '/social' ? 'black' : 'lightgrey' }}>
+                        <DrawerLinkHolder>
+                            <i style={styles.fontSize} className={insta}></i>
+                            <DrawerLinkName style={styles.fontSize}>Social</DrawerLinkName>
+                        </DrawerLinkHolder>
+                    </Drawer>
+                    <Drawer onClick={viewBlogs} style={{ ...styles.height, color: pathname === '/blogs' ? 'black' : 'lightgrey' }}>
+                        <DrawerLinkHolder>
+                            <i style={styles.fontSize} className={shirt}></i>
+                            <DrawerLinkName style={styles.fontSize}>Blogs</DrawerLinkName>
+                        </DrawerLinkHolder>
+                    </Drawer>
+                    <Drawer onClick={viewProfile} style={{ ...styles.height, color: pathname === '/profile' ? 'black' : 'lightgrey' }}>
+                        <DrawerLinkHolder>
+                            <i style={styles.fontSize} className={profile}></i>
+                            <DrawerLinkName style={styles.fontSize}>Profile</DrawerLinkName>
+                        </DrawerLinkHolder>
+                    </Drawer>
+                    <Drawer onClick={handleLogout} style={{ ...styles.height }}>
+                        <DrawerLinkHolder>
+                            <i style={styles.fontSize} className={logout}></i>
+                            <DrawerLinkName style={styles.fontSize}>logout</DrawerLinkName>
+                        </DrawerLinkHolder>
+                    </Drawer>
+                </DrawerContainer>
 
                 <MiddleContainer className='Top-Nav'>
-                    <Link to='/' style={{ color: 'black', textDecoration: 'none' }}><h1 style={{ fontSize: 40 }}>SHO</h1></Link>
+                    <Link className='Link' to='/' ><Logo>SHO</Logo></Link>
                     <SearchForm>
                         <SearchInput />
-                        <SearchIcon className="fas fa-search"></SearchIcon>
+                        <SearchIcon className={search}></SearchIcon>
                     </SearchForm>
                 </MiddleContainer>
 
-                <div className='Bottom-Nav' style={{ width: '100%', height: 50 }}>
-                    <Link to='/products' style={{ color: pathname === '/products' ? 'black' : 'lightgrey', textDecoration: 'none' }}><h3>Products</h3></Link>
-                    <Link to='/social' style={{ color: pathname === '/social' ? 'black' : 'lightgrey', textDecoration: 'none' }}><h3>Social</h3></Link>
-                    <Link to='/blogs' style={{ color: pathname === '/blogs' ? 'black' : 'lightgrey', textDecoration: 'none' }}><h3>Blogs</h3></Link>
-                </div>
-            </div>
+                <BottomContainer className='Bottom-Nav'>
+                    <Link className='Link' to='/products' style={{ color: pathname === '/products' ? 'black' : 'lightgrey' }}>
+                        <h3>Products</h3>
+                    </Link>
+                    <Link className='Link' to='/social' style={{ color: pathname === '/social' ? 'black' : 'lightgrey' }}>
+                        <h3>Social</h3>
+                    </Link>
+                    <Link className='Link' to='/blogs' style={{ color: pathname === '/blogs' ? 'black' : 'lightgrey' }}>
+                        <h3>Blogs</h3>
+                    </Link>
+                </BottomContainer>
+            </MainBody>
         )
     }
     // }
@@ -166,10 +190,77 @@ function mapStateToProps(reduxState) {
 
 export default withRouter(connect(mapStateToProps)(Header))
 
+
+const AuthBody = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 190px;
+    font-size: 20px;
+    color: white;
+    max-width: 100vw; 
+`
+
+const AuthHeader = styled.div`
+    height: 75px;
+    background: grey;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
+const AuthMain = styled.div`
+    display: flex;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: black;
+`
+
+const Logo = styled.h1`
+    font-size: 40px;
+    color:black; 
+`
+
+const MainBody = styled.div`
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 30px;
+    max-width: 100vw;
+    width: 100vw;
+    position: relative;
+
+`
+
+const TopContainer = styled.div`
+    height: 75px;
+    background: grey;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
+const TopUsername = styled.div`
+    margin-left:20px;
+`
+
 const TopNavBar = styled.div`
     width: 350px;
     justify-content: space-around;
     margin-right: 20px
+`
+
+const TopNavLink = styled.div`
+    text-align:center;
+    position:relative;
+`
+
+const TopNavIcon = styled.i`
+    font-size:30px;
 `
 
 const MiddleContainer = styled.div`
@@ -211,5 +302,47 @@ const SearchIcon = styled.i`
     margin-right:7px;
 `
 
+const DrawerContainer = styled.div`
+    position: absolute;
+    top: 70px;
+    display: flex;
+    flex-direction: column;
+    right: 0px;
+    width: 100vw;
+    background: blue;
+    margin-bottom: 70px;
+    z-index: 1;
+    align-items: center; 
+`
 
+const Drawer = styled.div`
+    display: flex;
+    text-align: center;
+    position: relative;
+`
 
+const DrawerLinkHolder = styled.div`
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: -50px;
+    top: 10px; 
+`
+
+const DrawerLinkName = styled.i`
+    margin-left:15px;
+`
+
+const DrawerCartNum = styled.div`
+    background: #ff0000;
+    position: absolute;
+    top: -8px;
+    right: 60px;
+    border-radius: 50%;
+    width: 20px; 
+`
+
+const BottomContainer = styled.div`
+    width: 100%;
+    height: 50px;
+`

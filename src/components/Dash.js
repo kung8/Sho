@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 
 function Dash(props) {
-    console.log(props)
     // if (!Object.keys(props.auth.user).length) {
     //     return <Redirect to='/authentication' />
     // } else {

@@ -281,7 +281,7 @@ const SearchForm = styled.form`
     display:flex;
     align-items:center;
     justify-content:space-between;
-    @media screen and (min-width:415px){
+    @media screen and (min-width:750px){
         position: absolute;
         right: 50px 
     }

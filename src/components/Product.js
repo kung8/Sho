@@ -33,9 +33,13 @@ function Product(props) {
 
     let imgArr = product.images.map((img, index) => <img onClick={() => selectPic(index)} key={index} src={img} style={{ border: selectedPic === index && 'blue solid 3px', height: 100, width: 75 }} alt='pic' />)
 
+    let smallImgArr = product.images.map((img, index) => {
+        return (<SmallImgDots onClick={() => selectPic(index)} key={index} style={{ background: selectedPic === index ? 'grey' : 'lightgrey', border: selectedPic === index ? 'black 2px solid' : 'black 2px solid' }}></SmallImgDots>)
+    })
+
     let colorArr = product.colors.map((color, index) => <div onClick={() => selectColor(index)} style={{ marginRight: 50, borderPadding: 5, border: selectedColor === index && 'black solid 3px', background: color, height: 35, width: 35, borderRadius: '50%' }}></div>)
 
-    let sizeArr = product.sizes.map((size, index) => <h2 onClick={() => selectSize(index)} style={{ marginRight: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', border: selectedSize === index && 'grey solid 3px', borderRadius: '100%', fontSize: 25, width: 35, height: 35, background: selectedSize === index && 'lightgrey' }}>{size}</h2>)
+    let sizeArr = product.sizes.map((size, index) => <SmallSizes onClick={() => selectSize(index)} style={{ border: selectedSize === index && 'grey solid 3px', background: selectedSize === index && 'lightgrey' }}>{size}</SmallSizes>)
 
     return (
         <Body>
@@ -43,13 +47,7 @@ function Product(props) {
                 <BigImageSelected src={product.images[selectedPic]} alt="product" />
                 <BigSmallImageContainer>{imgArr}</BigSmallImageContainer>
             </BigImageContainer>
-{/* 
-            <SmallImageContainer style={{position:'relative'}}>
-                <img src={product.images[selectedPic]} alt="product" />
-                <div style={{position:'absolute'}}></div>   
-            </SmallImageContainer> */}
-            
-            
+
             <BigProductInfoContainer>
                 <BigProductName>{product.name}</BigProductName>
                 <BigProductPrice>{product.price}</BigProductPrice>
@@ -63,7 +61,7 @@ function Product(props) {
                     </div>
                     <BigQtyHolder>
                         <BigSpanTitle>Qty</BigSpanTitle>
-                        <BigQtyInput onChange={(e) => selectQty(e.target.value)} value={selectedQty} type='number' min='0' />
+                        <QtyInput onChange={(e) => selectQty(e.target.value)} value={selectedQty} type='number' min='0' />
                     </BigQtyHolder>
                 </BigProductColorAndQtyContainer>
 
@@ -75,17 +73,55 @@ function Product(props) {
                     <BigAddButton>ADD TO CART</BigAddButton>
                 </BigProductSizeAndAddContainer>
 
-                <div style={{ width: 500 }}>
+                <BigProductDescriptionContainer>
                     <BigSpanTitle>Item Description</BigSpanTitle>
-                    <p>{product.details}</p>
-                </div>
+                    <BigProductDescription>{product.details}</BigProductDescription>
+                </BigProductDescriptionContainer>
 
                 <div>
                     <BigSpanTitle>Service Challenge</BigSpanTitle>
                     <p>Call a loved one that you haven't spoken to in a while.</p>
                 </div>
             </BigProductInfoContainer>
+
+            <SmallProductNameAndPriceContainer>
+                <SmallProductName>{product.name}</SmallProductName>
+                <SmallProductPrice>{product.price}</SmallProductPrice>
+            </SmallProductNameAndPriceContainer>
+            <SmallImageContainer>
+                <SmallImageSelected src={product.images[selectedPic]} alt="product" />
+                <SmallImgDotContainer>
+                    {smallImgArr}
+                </SmallImgDotContainer>
+            </SmallImageContainer>
+
+            <SmallProductInfoContainer>
+                <SmallProductDescriptionContainer>
+                    <SmallSpanTitle>Item Description</SmallSpanTitle>
+                    <p>{product.details}</p>
+                </SmallProductDescriptionContainer>
+                
+                <div>
+                    <SmallSpanTitle>Choose Tee Color</SmallSpanTitle>
+                    <SmallColorContainer>
+                        {colorArr}
+                    </SmallColorContainer>
+                </div>
+                
+                <div>
+                    <SmallSpanTitle>Sizes</SmallSpanTitle>
+                    <SmallSizeContainer>{sizeArr}</SmallSizeContainer>
+                </div>
+
+                <SmallQtyHolder>
+                    <SmallSpanTitle>Qty</SmallSpanTitle>
+                    <QtyInput onChange={(e) => selectQty(e.target.value)} value={selectedQty} type='number' min='0' />
+                </SmallQtyHolder>
             
+            </SmallProductInfoContainer>
+            <SmallAddButton>ADD TO CART</SmallAddButton>
+
+
         </Body>
     )
 }
@@ -96,46 +132,60 @@ const Body = styled.div`
     min-height: calc(100vh - 330px);
     background: white;
     display: flex;
-    justify-content: space-around;
+    flex-direction:column;
+    align-items:center;
     margin-bottom: 50px;
-    font-family: Arial,Helvetica,sans-serif ;
-    flex-wrap:wrap
+    font-family: Arial,Helvetica,sans-serif;
+    @media screen and (min-width:1060px){
+        flex-direction:row;
+        justify-content: space-around;
+        align-items:flex-start;
+        flex-wrap:wrap;
+    }
 `
 
 const BigImageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media screen and (max-width:1060px){
+        display:none;
+    }
 `
 
 const BigImageSelected = styled.img`
     height: 400px; 
     width: 400px;
+    @media screen and (max-width:1060px){
+        display:none;
+    }
 `
 
 const BigSmallImageContainer = styled.div`
     display:none;
-    // @media screen and (min-width:1024px){
+    @media screen and (min-width:1060px){
         display: flex;
         justify-content: space-between;
         width: 450px;
         margin-top: 25px; 
-    // }
+    }
 `
 
 const BigProductInfoContainer = styled.div`
-    // @media screen and (max-width:1024px){
-        // display:none
-    // }
+    @media screen and (max-width:1060px){
+        display:none
+    }
 `
 const BigProductName = styled.h1`
     font-size: 50px;
     font-weight: bold;
+    margin-bottom:10px;
 `
 
 const BigProductPrice = styled.h3`
     font-size: 35px; 
     font-weight: 300;
+    margin-bottom:20px;
 `
 
 const BigSpanTitle = styled.span`
@@ -148,6 +198,8 @@ const BigProductColorAndQtyContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     position: relative;
+    margin-bottom:20px;
+
 `
 
 const BigQtyHolder = styled.div`
@@ -158,7 +210,7 @@ const BigQtyHolder = styled.div`
     top: 15px
 `
 
-const BigQtyInput = styled.input`
+const QtyInput = styled.input`
     margin-left: 10px;
     width: 70px;
     height: 35px;
@@ -173,6 +225,8 @@ const BigProductSizeAndAddContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     position: relative;
+    margin-bottom:20px;
+
 `
 
 const BigAddButton = styled.button`
@@ -186,6 +240,149 @@ const BigAddButton = styled.button`
     top: 10px;
 `
 
-const SmallImageContainer = styled.div`
+const BigProductDescriptionContainer = styled.div`
+    width:500px;
+`
 
+const BigProductDescription = styled.p`
+    margin-bottom:20px;
+`
+
+const SmallProductNameAndPriceContainer = styled.div`
+    display:flex;
+    margin-top:20px;
+    margin-bottom:20px;
+    flex-direction:column;
+    align-items:center;
+    @media screen and (min-width:1060px){
+        display:none;
+    }
+`
+
+const SmallProductName = styled.h1`
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom:10px;
+`
+
+const SmallProductPrice = styled.h3`
+    font-size: 35px; 
+    font-weight: 300;
+`
+
+const SmallImageContainer = styled.div`
+    position:relative;
+    margin-bottom:20px;
+`
+
+const SmallImageSelected = styled.img`
+    width: 90vw;
+    height: 400px;
+    @media screen and (min-width:410px){
+        width:400px;
+    }
+    @media screen and (min-width:1060px){
+        display:none;
+    }
+`
+
+const SmallImgDotContainer = styled.div`
+    display: flex;
+    width: 200px;
+    left:calc(50vw - 110px);
+    justify-content: space-between;
+    position: absolute;
+    bottom: 45px;
+    @media screen and (min-width:400px){
+        left: 100px;
+    }
+`
+
+const SmallImgDots = styled.div`
+    border-radius: 50%; 
+    height: 35px;
+    width: 35px;
+    @media screen and (min-width:1060px){
+        display:none;
+    } 
+`
+
+const SmallProductInfoContainer = styled.div`
+    display: flex;
+    margin-bottom:20px;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left:20px;
+    width:90vw;
+    @media screen and (min-width:450px){
+        align-items:center;
+    }
+    @media screen and (min-width:1060px){
+        display:none;
+    }
+`
+
+const SmallSpanTitle = styled.div`
+    font-weight: bold;
+`
+
+const SmallProductDescriptionContainer = styled.div`
+    width:83vw;
+    margin-bottom:20px;
+    @media screen and (min-width:450px){
+        width:400px;
+    }
+`
+
+const SmallColorContainer = styled.div`
+    display: flex; 
+    width:90vw;
+    margin-bottom:20px;
+    @media screen and (min-width:450px){
+        width: 400px;
+    }
+`
+
+const SmallSizeContainer = styled.div`
+    display: flex; 
+    width:90vw;
+    margin-bottom:20px;
+    @media screen and (min-width:360px){
+        width: 320px
+    }
+    @media screen and (min-width:450px){
+        width:400px;
+        justify-content:flex-start;
+    }
+`
+
+const SmallSizes = styled.h2`
+    margin-right:50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    font-size: 25px;
+    width: 35px;
+    height: 35px;
+`
+
+const SmallQtyHolder = styled.div`
+    display: flex;
+    align-items: center;
+    @media screen and (min-width:450px){
+        width:400px;
+        justify-content:flex-start;
+    }
+`
+
+const SmallAddButton = styled.button`
+    width: 150px;
+    height: 45px;
+    font-size: 20px;
+    border-radius: 16px;
+    outline: none;
+    @media screen and (min-width:1060px){
+        display:none;
+    }
 `

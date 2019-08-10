@@ -78,8 +78,8 @@ function Header(props) {
         cartHeight: {
             height: hamOpened ? 20 : 0
         },
-        drawerContainer:{
-            height: hamOpened ? 300 : 0 
+        drawerContainer: {
+            height: hamOpened ? 300 : 0
         }
     }
 
@@ -102,13 +102,13 @@ function Header(props) {
                     <i className={hamburger} onClick={() => handleDrawerToggle()}></i>
                     <TopNavBar className='Top-Nav'>
                         <TopNavLink onClick={() => props.history.push('/cart')}>
-                            <TopNavIcon className={cart}></TopNavIcon>
-                            <h1>cart</h1>
+                            <TopNavIcon style={{ color: pathname === '/cart' || pathname === '/checkout' ? 'black' : 'lightgrey' }} className={cart}></TopNavIcon>
+                            <h1 style={{ color: pathname === '/cart' || pathname === '/checkout' ? 'black' : 'lightgrey' }}>cart</h1>
                             <DrawerCartNum style={{ right: -5 }}>4</DrawerCartNum>
                         </TopNavLink>
                         <TopNavLink onClick={() => props.history.push('/profile')}>
-                            <TopNavIcon className={profile}></TopNavIcon>
-                            <h1>profile</h1>
+                            <TopNavIcon style={{ color: pathname === '/profile' ? 'black' : 'lightgrey' }} className={profile}></TopNavIcon>
+                            <h1 style={{ color: pathname === '/profile' ? 'black' : 'lightgrey' }} >profile</h1>
                         </TopNavLink>
                         <TopNavLink onClick={() => props.history.push('/authentication')}>
                             <TopNavIcon className={logout}></TopNavIcon>
@@ -232,7 +232,6 @@ const MainBody = styled.div`
     max-width: 100vw;
     width: 100vw;
     position: relative;
-
 `
 
 const TopContainer = styled.div`
@@ -251,7 +250,7 @@ const TopUsername = styled.div`
 const TopNavBar = styled.div`
     width: 350px;
     justify-content: space-around;
-    margin-right: 20px
+    margin-right: 20px;
 `
 
 const TopNavLink = styled.div`

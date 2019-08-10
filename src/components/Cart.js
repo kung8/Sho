@@ -14,14 +14,18 @@ function Cart(props){
                 name:'Tee',
                 image:'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcT2_-2MPmhMn7YFkObzyKUh1XQjtTj3MWjV6ynCmOZKaNMJLjWc3QOpS4gvRMsvGztT1ikF8emOL0201jjE6xPv4xBRmMUCW2uh32GMh9fkzQtS5UzX14T07g&usqp=CAE',
                 price:'20',
-                qty:3
+                qty:3,
+                size:'L',
+                color:'yellow'
             },
             {
                 id:2,
                 name:'Another Tee',
                 image:'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTkKMQnguUTq9o1PdiP_10DKkPB7q22pe_J8w_R_cRjCeBAzvZpM43QjztjsHR2UYJd0VqX0qri-XftHuCbV7AnNBdN1yJXpe76q3V7G1zJR2vwDZwvjaos&usqp=CAc',
                 price:'30',
-                qty:1
+                qty:1,
+                size:'M',
+                color:'blue'
             }
         ])
     },[])
@@ -78,6 +82,8 @@ const Body = styled.div`
     flex-direction:column;
     align-items:center;
     margin-bottom:30px;
+    max-width:100vw;
+    width:100%;
 `
 
 const CartTitle = styled.h1`
@@ -126,4 +132,5 @@ const Button = styled.button`
     height:40px;
     font-size:30px;
     border-radius:16px;
+    outline:none;
 `

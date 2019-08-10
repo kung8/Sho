@@ -6,7 +6,7 @@ import Footer from './components/Footer'
 
 function App() {
   return (
-    <div>
+    <div style={{margin:0,padding:0,maxWidth:'100vw',width:'100%',overflow:'hidden'}}>
       <Header />
       {routes}
       <Footer />

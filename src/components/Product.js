@@ -135,6 +135,7 @@ const Body = styled.div`
     flex-direction:column;
     align-items:center;
     margin-bottom: 50px;
+    max-width:100vw;
     font-family: Arial,Helvetica,sans-serif;
     @media screen and (min-width:1060px){
         flex-direction:row;

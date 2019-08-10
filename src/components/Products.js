@@ -50,6 +50,7 @@ const Body = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
+    max-width:100vw;
 `
 
 const ProductArrHolder = styled.div`

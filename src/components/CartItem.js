@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import './Product.css'
 import styled from 'styled-components'
+import axios from 'axios'
 
 function CartItem(props) {
-    const { name, price, qty, image, id } = props.item
+    const { name, price, qty, image, id, size, color } = props.item
     const { index, last } = props
+
     const [quantity, setQuantity] = useState(qty)
+    const [selectedColor,selectColor] = useState(color)
+    const [selectedSize,selectSize] = useState(size)
+
+    const [colors, setColors] = useState([])
+    const [sizes,setSizes] = useState([])
+
+    const [colorBox,setColorBox] = useState(false)
+    const [sizeBox,setsizeBox] = useState(false)
 
     const styles = {
         ifFirst: {
@@ -22,12 +32,26 @@ function CartItem(props) {
     }
 
     useEffect(() => {
+        setColors(['blue', 'green', 'yellow','orange','red','purple'])
+        setSizes(['S', 'M', 'L', 'XL'])
+        
+    }, [quantity,sizes,colors])
 
-    }, [quantity])
+    const showColors=()=>{
+        console.log('This is working!')
+        setColorBox(!colorBox)
+    }
+
+    const colorSelected = (color) =>{
+        selectColor(color)
+        setColorBox(false)
+    }
+
+    let colorsArr = colors.map((color,index)=><div key={index} onClick={()=>colorSelected(color)} style={{border:'solid 1px black',background:color,height:25,width:25,borderRadius:'50%',marginRight:'2px'}}></div>)
 
     return (
         <>
-            <BigHR style={styles.ifFirst}/>
+            <BigHR style={styles.ifFirst} />
             <CartItemContainer>
                 <SmallHR style={styles.ifFirst} />
                 <div style={styles.firstImage}>
@@ -38,9 +62,18 @@ function CartItem(props) {
                         <CartItemName>{name}</CartItemName>
                         <CartItemPrice>${parseFloat(price * qty).toFixed(2)}</CartItemPrice>
                     </CartItemNameAndPriceContainer>
+                    <CartItemCategoryContainer>
+                        <CartItemCategory>Size:</CartItemCategory>
+                        <CartItemSize>{size}</CartItemSize>
+                    </CartItemCategoryContainer>
+                    <CartItemCategoryContainer>
+                        <CartItemCategory>Color:</CartItemCategory>
+                        {!colorBox && <CartItemColor onClick={showColors} style={{border:'1px solid black',background: selectedColor}}></CartItemColor>}
+                        {colorBox && <div onMouseLeave={showColors} style={{display:'flex',border:'1px solid black',minWidth:'100px',borderRadius:'16px',padding:'2px'}}>{colorsArr}</div>}
+                    </CartItemCategoryContainer>
                     <CartItemQtyAndRemoveContainer>
                         <CartItemQtyContainer>
-                            <CartItemQty>Qty:</CartItemQty>
+                            <CartItemCategory>Qty:</CartItemCategory>
                             <CartItemQtyInput onChange={e => setQuantity(e.target.value)} min='0' type='number' value={quantity} />
                         </CartItemQtyContainer>
                         <CartItemRemoveButton>Remove from Cart</CartItemRemoveButton>
@@ -48,7 +81,7 @@ function CartItem(props) {
                 </CartItemInfoContainer>
                 <SmallHR style={styles.ifLast} />
             </CartItemContainer>
-            <BigHR style={styles.ifLast}/>
+            <BigHR style={styles.ifLast} />
         </>
     )
 }
@@ -60,6 +93,8 @@ const CartItemContainer = styled.div`
     flex-direction:column;
     align-items:center;
     marginTop:5px;
+    max-width:100vw;
+    width:100vw;
     @media screen and (min-width:600px){
         flex-direction:row;
         justify-content:space-around;
@@ -82,7 +117,6 @@ const CartItemInfoContainer = styled.div`
     display:flex;
     flex-direction:column;
     @media screen and (min-width:600px){
-        align-items:center;
         justify-content:space-around;
         height:200px;
     }
@@ -94,12 +128,13 @@ const CartItemNameAndPriceContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 5px; 
-    @media screen and (min-width:600px){
-        width:45vw;
-    }
     @media screen and (max-width:321px){
         width:90vw;
     }
+    @media screen and (min-width:600px){
+        width:45vw;
+    }
+    
 `
 
 const CartItemName = styled.h1`
@@ -109,6 +144,28 @@ const CartItemName = styled.h1`
 
 const CartItemPrice = styled.h2`
     font-size: 20px
+`
+
+const CartItemCategoryContainer = styled.div`
+    display: flex; 
+    align-items: center;
+    margin-top:5px;
+`
+
+const CartItemCategory = styled.span`
+    font-weight: bold; 
+    font-size: 20px;
+    margin-right:5px; 
+`
+
+const CartItemSize = styled.h3`
+    font-size:20px;
+`
+
+const CartItemColor = styled.div`
+    height: 25px;
+    width: 25px;
+    border-radius: 50%
 `
 
 const CartItemQtyAndRemoveContainer = styled.div`
@@ -131,17 +188,10 @@ const CartItemQtyContainer = styled.div`
     align-items:center;
 `
 
-const CartItemQty = styled.span`
-    font-weight: bold; 
-    font-size: 20px;
-    margin-right:5px; 
-`
-
 const CartItemQtyInput = styled.input`
     width: 60px;
     font-size: 20px;
     height: 25px;
-    margin-left: 0px;
     outline:none;
     border:1px solid black;
     border-radius:16px;

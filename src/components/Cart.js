@@ -41,7 +41,7 @@ function Cart(props){
 
     return(
         <Body>
-            <h1>Cart</h1>
+            <CartTitle>CART</CartTitle>
             {mappedCart}
             <CalculationContainer>
                 <CategoriesContainer>
@@ -73,11 +73,15 @@ export default connect(mapStateToProps)(Cart)
 
 
 const Body = styled.div`
-    min-hheight:calc(100vh - 330px);
+    min-height:calc(100vh - 330px);
     display:flex;
     flex-direction:column;
     align-items:center;
     margin-bottom:30px;
+`
+
+const CartTitle = styled.h1`
+    font-size:50px;
 `
 
 const CalculationContainer = styled.div`

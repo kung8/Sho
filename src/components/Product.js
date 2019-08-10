@@ -216,7 +216,8 @@ const QtyInput = styled.input`
     height: 35px;
     font-size: 25px;
     border-radius: 10px;
-    outline: none
+    outline: none;
+    text-align:center;
 `
 
 const BigProductSizeAndAddContainer = styled.div`
@@ -324,6 +325,8 @@ const SmallProductInfoContainer = styled.div`
 
 const SmallSpanTitle = styled.div`
     font-weight: bold;
+    font-size:18px;
+    margin-bottom:2px;
 `
 
 const SmallProductDescriptionContainer = styled.div`
@@ -377,7 +380,7 @@ const SmallQtyHolder = styled.div`
 `
 
 const SmallAddButton = styled.button`
-    width: 150px;
+    width: 180px;
     height: 45px;
     font-size: 20px;
     border-radius: 16px;

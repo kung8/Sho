@@ -26,24 +26,30 @@ function CartItem(props) {
     }, [quantity])
 
     return (
-        <CartItemContainer>
-            <HR style={styles.ifFirst} />
-            <div style={styles.firstImage}>
-                <Img src={image} alt='product image' />
-            </div>
-            <div>
-                <CartItemNameAndPriceContainer>
-                    <CartItemName>{name}</CartItemName>
-                    <CartItemPrice>${parseFloat(price * qty).toFixed(2)}</CartItemPrice>
-                </CartItemNameAndPriceContainer>
-                <CartItemQtyAndRemoveContainer>
-                    <CartItemQty>Qty:</CartItemQty>
-                    <CartItemQtyInput onChange={e => setQuantity(e.target.value)} min='0' type='number' value={quantity} />
-                    <CartItemRemoveButton>Remove from Cart</CartItemRemoveButton>
-                </CartItemQtyAndRemoveContainer>
-            </div>
-            <HR style={styles.ifLast} />
-        </CartItemContainer>
+        <>
+            <BigHR style={styles.ifFirst}/>
+            <CartItemContainer>
+                <SmallHR style={styles.ifFirst} />
+                <div style={styles.firstImage}>
+                    <Img src={image} alt='product image' />
+                </div>
+                <CartItemInfoContainer>
+                    <CartItemNameAndPriceContainer>
+                        <CartItemName>{name}</CartItemName>
+                        <CartItemPrice>${parseFloat(price * qty).toFixed(2)}</CartItemPrice>
+                    </CartItemNameAndPriceContainer>
+                    <CartItemQtyAndRemoveContainer>
+                        <CartItemQtyContainer>
+                            <CartItemQty>Qty:</CartItemQty>
+                            <CartItemQtyInput onChange={e => setQuantity(e.target.value)} min='0' type='number' value={quantity} />
+                        </CartItemQtyContainer>
+                        <CartItemRemoveButton>Remove from Cart</CartItemRemoveButton>
+                    </CartItemQtyAndRemoveContainer>
+                </CartItemInfoContainer>
+                <SmallHR style={styles.ifLast} />
+            </CartItemContainer>
+            <BigHR style={styles.ifLast}/>
+        </>
     )
 }
 
@@ -54,13 +60,32 @@ const CartItemContainer = styled.div`
     flex-direction:column;
     align-items:center;
     marginTop:5px;
+    @media screen and (min-width:600px){
+        flex-direction:row;
+        justify-content:space-around;
+        align-items:none;
+        width:90vw;
+    }
 `
 
-const HR = styled.hr`
+const SmallHR = styled.hr`
+    @media screen and (min-width:600px){
+        display:none;
+    }
 `
 
 const Img = styled.img`
     height:200px;
+`
+
+const CartItemInfoContainer = styled.div`
+    display:flex;
+    flex-direction:column;
+    @media screen and (min-width:600px){
+        align-items:center;
+        justify-content:space-around;
+        height:200px;
+    }
 `
 
 const CartItemNameAndPriceContainer = styled.div`
@@ -69,6 +94,12 @@ const CartItemNameAndPriceContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 5px; 
+    @media screen and (min-width:600px){
+        width:45vw;
+    }
+    @media screen and (max-width:321px){
+        width:90vw;
+    }
 `
 
 const CartItemName = styled.h1`
@@ -87,11 +118,23 @@ const CartItemQtyAndRemoveContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 5px;
+    @media screen and (min-width:600px){
+        width:45vw;
+    }
+    @media screen and (max-width:321px){
+        width:90vw;
+    }
+`
+
+const CartItemQtyContainer = styled.div`
+    display:flex;
+    align-items:center;
 `
 
 const CartItemQty = styled.span`
     font-weight: bold; 
-    font-size: 20px 
+    font-size: 20px;
+    margin-right:5px; 
 `
 
 const CartItemQtyInput = styled.input`
@@ -112,4 +155,11 @@ const CartItemRemoveButton = styled.button`
     background: blue;
     width: 150px;
     height: 30px;
+`
+
+const BigHR = styled.hr`
+    display:none;
+    @media screen and (min-width:600px){
+        display:block;
+    }
 `

@@ -8,6 +8,7 @@ function Cart(props){
     const [cart,setCart] = useState([])
 
     useEffect(()=>{
+        //Axios call to get the user's car
         setCart([
             {
                 id:1,
@@ -31,17 +32,23 @@ function Cart(props){
     },[])
 
     let subtotal = parseFloat(Math.round(cart.reduce((total,item)=>total + (item.price * item.qty),0))).toFixed(2)
+    
     let tax = parseFloat(subtotal * 0.0675).toFixed(2)
+    
     let shipping = parseFloat(5).toFixed(2)
+    
     let total = +subtotal + +tax + +shipping
 
-    //this is where I will get the cart for that user
 
     let mappedCart = cart.map((item,index)=>{
         return(
             <CartItem key={item.id} item={item} index={index} last={cart.length-1}/>
         )
     })
+
+    const handleCheckout = () => {
+        props.history.push('/checkout')
+    }
 
     return(
         <Body>
@@ -62,7 +69,7 @@ function Cart(props){
                 </NumbersContainer>
                 <HR/>
             </CalculationContainer>
-            <Button>Checkout</Button>
+            <Button onClick={handleCheckout}>Checkout</Button>
         </Body>
     )
 }

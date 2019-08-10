@@ -15,7 +15,7 @@ function CartItem(props) {
     const [sizes,setSizes] = useState([])
 
     const [colorBox,setColorBox] = useState(false)
-    const [sizeBox,setsizeBox] = useState(false)
+    const [sizeBox,setSizeBox] = useState(false)
 
     const styles = {
         ifFirst: {
@@ -32,22 +32,39 @@ function CartItem(props) {
     }
 
     useEffect(() => {
+        //axios call for that specific product's available colors and sizes
         setColors(['blue', 'green', 'yellow','orange','red','purple'])
         setSizes(['S', 'M', 'L', 'XL'])
         
     }, [quantity,sizes,colors])
 
     const showColors=()=>{
-        console.log('This is working!')
         setColorBox(!colorBox)
+    }
+
+    const showSizes = () => {
+        setSizeBox(!sizeBox)
+    }
+
+    const sizeSelected = (size) => {
+        selectSize(size)
+        setSizeBox(false)
+        //need to save this change to the db
     }
 
     const colorSelected = (color) =>{
         selectColor(color)
         setColorBox(false)
+        //need to save this change to the db
     }
 
-    let colorsArr = colors.map((color,index)=><div key={index} onClick={()=>colorSelected(color)} style={{border:'solid 1px black',background:color,height:25,width:25,borderRadius:'50%',marginRight:'2px'}}></div>)
+    let sizesArr = sizes.map((size,index)=>{
+        return<CartItemSizes key={index} onClick={()=>sizeSelected(size)} >{size}</CartItemSizes>
+    })
+    
+    let colorsArr = colors.map((color,index)=>{
+        return <CartItemColors key={index} onClick={()=>colorSelected(color)} style={{background:color}}></CartItemColors>
+    })
 
     return (
         <>
@@ -64,12 +81,15 @@ function CartItem(props) {
                     </CartItemNameAndPriceContainer>
                     <CartItemCategoryContainer>
                         <CartItemCategory>Size:</CartItemCategory>
-                        <CartItemSize>{size}</CartItemSize>
+                        
+                        {!sizeBox && <CartItemSize onClick={showSizes}>{selectedSize}</CartItemSize>}
+                        {sizeBox && <CartItemSizesContainer onMouseLeave={showSizes}>{sizesArr}</CartItemSizesContainer>}
+
                     </CartItemCategoryContainer>
                     <CartItemCategoryContainer>
                         <CartItemCategory>Color:</CartItemCategory>
-                        {!colorBox && <CartItemColor onClick={showColors} style={{border:'1px solid black',background: selectedColor}}></CartItemColor>}
-                        {colorBox && <div onMouseLeave={showColors} style={{display:'flex',border:'1px solid black',minWidth:'100px',borderRadius:'16px',padding:'2px'}}>{colorsArr}</div>}
+                        {!colorBox && <CartItemColor onClick={showColors} style={{background: selectedColor}}></CartItemColor>}
+                        {colorBox && <CartItemColorsContainer onMouseLeave={showColors}>{colorsArr}</CartItemColorsContainer>}
                     </CartItemCategoryContainer>
                     <CartItemQtyAndRemoveContainer>
                         <CartItemQtyContainer>
@@ -162,10 +182,42 @@ const CartItemSize = styled.h3`
     font-size:20px;
 `
 
+const CartItemSizesContainer = styled.div`
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border:1px solid black;
+    min-width:150px;
+    border-radius:16px;
+    padding:2px;
+`
+
+const CartItemSizes = styled.h3`
+    margin-right:5px;
+    font-size:20px
+`
+
 const CartItemColor = styled.div`
     height: 25px;
     width: 25px;
-    border-radius: 50%
+    border-radius: 50%;
+    border:1px solid black;
+`
+
+const CartItemColorsContainer = styled.div`
+    display:flex;
+    border:1px solid black;
+    min-width:100px;
+    border-radius:16px;
+    padding:2px;
+`
+
+const CartItemColors = styled.div`
+    border:solid 1px black;
+    height:25px;
+    width:25px;
+    border-radius:50%;
+    margin-right:2px;
 `
 
 const CartItemQtyAndRemoveContainer = styled.div`

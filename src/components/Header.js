@@ -102,8 +102,8 @@ function Header(props) {
                     <i className={hamburger} onClick={() => handleDrawerToggle()}></i>
                     <TopNavBar className='Top-Nav'>
                         <TopNavLink onClick={() => props.history.push('/cart')}>
-                            <TopNavIcon style={{ color: pathname === '/cart' || pathname === '/checkout' ? 'black' : 'lightgrey' }} className={cart}></TopNavIcon>
-                            <h1 style={{ color: pathname === '/cart' || pathname === '/checkout' ? 'black' : 'lightgrey' }}>cart</h1>
+                            <TopNavIcon style={{ color: pathname === '/cart' ? 'black' : 'lightgrey' }} className={cart}></TopNavIcon>
+                            <h1 style={{ color: pathname === '/cart' ? 'black' : 'lightgrey' }}>cart</h1>
                             <DrawerCartNum style={{ right: -5 }}>4</DrawerCartNum>
                         </TopNavLink>
                         <TopNavLink onClick={() => props.history.push('/profile')}>
@@ -118,7 +118,7 @@ function Header(props) {
                 </TopContainer>
 
                 <DrawerContainer id='Drawer' style={styles.drawerContainer}>
-                    <Drawer onClick={viewCart} style={{ ...styles.height, color: pathname === '/cart' || pathname === '/checkout' ? 'black' : 'lightgrey' }}>
+                    <Drawer onClick={viewCart} style={{ ...styles.height, color: pathname === '/cart' ? 'black' : 'lightgrey' }}>
                         <DrawerLinkHolder>
                             <i style={styles.fontSize} className={cart}></i>
                             <DrawerLinkName style={styles.fontSize}>Cart</DrawerLinkName>

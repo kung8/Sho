@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
 // import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 
 function Dash(props) {
+    useEffect(()=>{
+        
+    },[])
     // if (!Object.keys(props.auth.user).length) {
     //     return <Redirect to='/authentication' />
     // } else {

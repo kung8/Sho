@@ -1,82 +1,86 @@
-import React, {useState,useEffect} from 'react'
-import {connect} from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import CartItem from './CartItem'
 import styled from 'styled-components'
 import axios from 'axios'
+import Checkout from './Checkout'
 
-function Cart(props){
-    const [cart,setCart] = useState([])
+function Cart(props) {
+    const [cart, setCart] = useState([])
 
-    useEffect(()=>{
-        //Axios call to get the user's car
+    useEffect(() => {
+        //Axios call to get the user's cart
         setCart([
             {
-                id:1,
-                name:'Tee',
-                image:'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcT2_-2MPmhMn7YFkObzyKUh1XQjtTj3MWjV6ynCmOZKaNMJLjWc3QOpS4gvRMsvGztT1ikF8emOL0201jjE6xPv4xBRmMUCW2uh32GMh9fkzQtS5UzX14T07g&usqp=CAE',
-                price:'20',
-                qty:3,
-                size:'L',
-                color:'yellow'
+                id: 1,
+                name: 'Tee',
+                image: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcT2_-2MPmhMn7YFkObzyKUh1XQjtTj3MWjV6ynCmOZKaNMJLjWc3QOpS4gvRMsvGztT1ikF8emOL0201jjE6xPv4xBRmMUCW2uh32GMh9fkzQtS5UzX14T07g&usqp=CAE',
+                price: '20',
+                qty: 3,
+                size: 'L',
+                color: 'yellow'
             },
             {
-                id:2,
-                name:'Another Tee',
-                image:'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTkKMQnguUTq9o1PdiP_10DKkPB7q22pe_J8w_R_cRjCeBAzvZpM43QjztjsHR2UYJd0VqX0qri-XftHuCbV7AnNBdN1yJXpe76q3V7G1zJR2vwDZwvjaos&usqp=CAc',
-                price:'30',
-                qty:1,
-                size:'M',
-                color:'blue'
+                id: 2,
+                name: 'Another Tee',
+                image: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTkKMQnguUTq9o1PdiP_10DKkPB7q22pe_J8w_R_cRjCeBAzvZpM43QjztjsHR2UYJd0VqX0qri-XftHuCbV7AnNBdN1yJXpe76q3V7G1zJR2vwDZwvjaos&usqp=CAc',
+                price: '30',
+                qty: 1,
+                size: 'M',
+                color: 'blue'
             }
         ])
-    },[])
+    }, [])
 
-    let subtotal = parseFloat(Math.round(cart.reduce((total,item)=>total + (item.price * item.qty),0))).toFixed(2)
-    
+    let subtotal = parseFloat(Math.round(cart.reduce((total, item) => total + (item.price * item.qty), 0))).toFixed(2)
+
     let tax = parseFloat(subtotal * 0.0675).toFixed(2)
-    
+
     let shipping = parseFloat(5).toFixed(2)
-    
+
     let total = +subtotal + +tax + +shipping
 
 
-    let mappedCart = cart.map((item,index)=>{
-        return(
-            <CartItem key={item.id} item={item} index={index} last={cart.length-1}/>
+    let mappedCart = cart.map((item, index) => {
+        return (
+            <CartItem key={item.id} item={item} index={index} last={cart.length - 1} />
         )
     })
 
-    const handleCheckout = () => {
-        props.history.push('/checkout')
+    const amount = '50'
+    const pay = () => {
+        //axios call to save to the db, update the cart and orders table 
+        //props.history.push('/')
     }
 
-    return(
+    return (
         <Body>
             <CartTitle>CART</CartTitle>
             {mappedCart}
             <CalculationContainer>
                 <CategoriesContainer>
-                    <Categories>Subtotal:</Categories> 
-                    <Categories>Tax:</Categories> 
+                    <Categories>Subtotal:</Categories>
+                    <Categories>Tax:</Categories>
                     <Categories>+ Shipping:</Categories>
-                    <Categories style={{marginTop:5}}>Total:</Categories> 
+                    <Categories style={{ marginTop: 5 }}>Total:</Categories>
                 </CategoriesContainer>
                 <NumbersContainer>
                     <Numbers>${subtotal}</Numbers>
                     <Numbers>${tax}</Numbers>
                     <Numbers>${shipping}</Numbers>
-                    <Numbers style={{marginTop:5}}>${total}</Numbers>
+                    <Numbers style={{ marginTop: 5 }}>${total}</Numbers>
                 </NumbersContainer>
-                <HR/>
+                <HR />
             </CalculationContainer>
-            <Button onClick={handleCheckout}>Checkout</Button>
+            <Checkout total={total} pay={pay} />
+            {/* <Button onClick={handleCheckout}>Checkout</Button> */}
         </Body>
     )
 }
 
 const mapStateToProps = (reduxState) => {
-    return{
-        user:reduxState.auth.user
+    return {
+        user: reduxState.auth.user
     }
 }
 
@@ -115,7 +119,7 @@ const CategoriesContainer = styled.div`
 const Categories = styled.span`
     font-weight:bold;
     font-size:28px;
-`   
+`
 
 const NumbersContainer = styled.div`
     display:flex;
@@ -133,11 +137,11 @@ const HR = styled.hr`
     top:80px;
 `
 
-const Button = styled.button`
-    margin-top:30px;
-    width:180px;
-    height:40px;
-    font-size:30px;
-    border-radius:16px;
-    outline:none;
-`
+// const Button = styled.button`
+//     margin-top:30px;
+//     width:180px;
+//     height:40px;
+//     font-size:30px;
+//     border-radius:16px;
+//     outline:none;
+// `

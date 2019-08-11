@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv/config')
 const {SERVER_PORT,CONNECTION_STRING,SESSION_SECRET} = process.env
 const express = require('express')
 const massive = require('massive')

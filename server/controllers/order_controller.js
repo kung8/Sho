@@ -1,6 +1,9 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET)
 
 module.exports = {
+    //handling the order itself
+    //view history of orders as a bonus
+    //
     pay:(req,res)=>{
         // const db = req.app.get('db')
         const {token:{id},amount} = req.body;

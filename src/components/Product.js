@@ -217,8 +217,10 @@ const QtyInput = styled.input`
     height: 35px;
     font-size: 25px;
     border-radius: 10px;
+    border:1px solid black;
     outline: none;
     text-align:center;
+    position:relative;
 `
 
 const BigProductSizeAndAddContainer = styled.div`
@@ -232,11 +234,12 @@ const BigProductSizeAndAddContainer = styled.div`
 `
 
 const BigAddButton = styled.button`
-    width: 150px;
+    width: 180px;
     height: 45px;
     font-size: 20px;
     border-radius: 16px;
     outline: none;
+    border:1px solid black;
     position: absolute;
     right: 0px;
     top: 10px;
@@ -385,6 +388,7 @@ const SmallAddButton = styled.button`
     height: 45px;
     font-size: 20px;
     border-radius: 16px;
+    border:1px solid black;
     outline: none;
     @media screen and (min-width:1060px){
         display:none;

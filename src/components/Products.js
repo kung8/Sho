@@ -136,6 +136,7 @@ const PrevButton = styled.button`
     width:125px;
     outline: none;
     display:flex;
+    border:1px solid black;
     align-items:center;
     justify-content:center;
     @media screen and (min-width:321px){
@@ -149,6 +150,7 @@ const NextButton = styled.button`
     font-size:25px;
     width:100px;
     outline: none;
+    border:1px solid black;
     display:flex;
     align-items:center;
     justify-content:center;

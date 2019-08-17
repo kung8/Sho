@@ -15,7 +15,7 @@ const hamburger = "fas fa-bars Hamburger"
 function Header(props) {
     const { pathname } = props.location
     const [hamOpened, setHamOpened] = useState(false)
-
+    const [isSearchClicked, clickSearch] = useState(false)
     const handleDrawerToggle = () => {
         let drawer = document.getElementById('Drawer')
         if (hamOpened) {
@@ -68,6 +68,16 @@ function Header(props) {
 
     }
 
+    const handleSearchClick = () => {
+        if (!isSearchClicked) {
+            let search = document.getElementById('search')
+            search.classList.add('SearchOpen')
+            clickSearch(!isSearchClicked)
+        } else {
+            clickSearch(!isSearchClicked)
+        }
+    }
+
     const styles = {
         fontSize: {
             fontSize: hamOpened ? 30 : 0
@@ -97,23 +107,40 @@ function Header(props) {
             <MainBody className='Header-Body'>
                 <TopContainer>
                     <TopUsername>
-                        <h1>username</h1>
+                        <Link className='Link' to='/' ><Logo>SHO</Logo></Link>
                     </TopUsername>
                     <i className={hamburger} onClick={() => handleDrawerToggle()}></i>
                     <TopNavBar className='Top-Nav'>
-                        <TopNavLink onClick={() => props.history.push('/cart')}>
-                            <TopNavIcon style={{ color: pathname === '/cart' ? 'black' : 'lightgrey' }} className={cart}></TopNavIcon>
-                            <h1 style={{ color: pathname === '/cart' ? 'black' : 'lightgrey' }}>cart</h1>
-                            <DrawerCartNum style={{ right: -5 }}>4</DrawerCartNum>
-                        </TopNavLink>
                         <TopNavLink onClick={() => props.history.push('/profile')}>
                             <TopNavIcon style={{ color: pathname === '/profile' ? 'black' : 'lightgrey' }} className={profile}></TopNavIcon>
-                            <h1 style={{ color: pathname === '/profile' ? 'black' : 'lightgrey' }} >profile</h1>
+                            {/* <h1 style={{ color: pathname === '/profile' ? 'black' : 'lightgrey' }} >profile</h1> */}
                         </TopNavLink>
-                        <TopNavLink onClick={() => props.history.push('/authentication')}>
+                        <TopNavLink onClick={() => props.history.push('/products')}>
+                            <TopNavIcon style={{ color: pathname === '/products' ? 'black' : 'lightgrey' }} className={shirt}></TopNavIcon>
+                            {/* <h1 style={{ color: pathname === '/products' ? 'black' : 'lightgrey' }}>product</h1> */}
+                        </TopNavLink>
+                        <TopNavLink onClick={() => props.history.push('/social')}>
+                            <TopNavIcon style={{ color: pathname === '/social' ? 'black' : 'lightgrey' }} className={insta}></TopNavIcon>
+                            {/* <h1 style={{ color: pathname === '/social' ? 'black' : 'lightgrey' }}>social</h1> */}
+                        </TopNavLink>
+                        <TopNavLink onClick={() => props.history.push('/cart')}>
+                            <TopNavIcon style={{ color: pathname === '/cart' ? 'black' : 'lightgrey' }} className={cart}></TopNavIcon>
+                            {/* <h1 style={{ color: pathname === '/cart' ? 'black' : 'lightgrey' }}>cart</h1> */}
+                            <DrawerCartNum style={{ right: -5 }}>4</DrawerCartNum>
+                        </TopNavLink>
+                        <TopNavLink>
+                            {isSearchClicked ?
+                                <form style={{ display: 'flex', alignItems: 'center', height: 35, width: 240, borderRadius: 16, background: 'lightgrey' }}>
+                                    <input style={{ height: 35, fontSize: 25, width: 190, marginLeft: 15, outline: 'none', border: 'none', color: 'white' }} />
+                                    <i className={search} onClick={handleSearchClick} style={{ fontSize: 30, marginLeft: 0 }}></i>
+                                </form> :
+                                <TopNavIcon id='search' onClick={handleSearchClick} className={search}></TopNavIcon>
+                            }
+                        </TopNavLink>
+                        {/* <TopNavLink onClick={() => props.history.push('/authentication')}>
                             <TopNavIcon className={logout}></TopNavIcon>
                             <h1>logout</h1>
-                        </TopNavLink>
+                        </TopNavLink> */}
                     </TopNavBar>
                 </TopContainer>
 
@@ -157,15 +184,15 @@ function Header(props) {
                     </Drawer>
                 </DrawerContainer>
 
-                <MiddleContainer className='Top-Nav'>
-                    <Link className='Link' to='/' ><Logo>SHO</Logo></Link>
+                <MiddleContainer>
+                    {/* <Link className='Link' to='/' ><Logo>SHO</Logo></Link> */}
                     <SearchForm>
                         <SearchInput />
                         <SearchIcon className={search}></SearchIcon>
                     </SearchForm>
                 </MiddleContainer>
 
-                <BottomContainer className='Bottom-Nav'>
+                {/* <BottomContainer className='Bottom-Nav'>
                     <Link className='Link' to='/products' style={{ color: pathname === '/products' ? 'black' : 'lightgrey' }}>
                         <h3>Products</h3>
                     </Link>
@@ -175,7 +202,7 @@ function Header(props) {
                     <Link className='Link' to='/blogs' style={{ color: pathname === '/blogs' ? 'black' : 'lightgrey' }}>
                         <h3>Blogs</h3>
                     </Link>
-                </BottomContainer>
+                </BottomContainer> */}
             </MainBody>
         )
     }
@@ -228,10 +255,10 @@ const MainBody = styled.div`
     flex-direction: column;
     font-size: 20px;
     color: white;
-    margin-bottom: 30px;
     max-width: 100vw;
     width: 100vw;
     position: relative;
+    height:150px;
 `
 
 const TopContainer = styled.div`
@@ -248,9 +275,13 @@ const TopUsername = styled.div`
 `
 
 const TopNavBar = styled.div`
-    width: 350px;
-    justify-content: space-around;
-    margin-right: 20px;
+    @media screen and(min-width:500px){
+        width: 450px;
+        margin-right: 20px;
+        display:flex;
+        justify-content: space-around;
+        align-items:center;
+    }
 `
 
 const TopNavLink = styled.div`
@@ -265,24 +296,28 @@ const TopNavIcon = styled.i`
 const MiddleContainer = styled.div`
     display: flex;
     flex-direction:column;
-    height: 100px;
+    height: 75px;
     align-items: center;
     justify-content: center;
     position: relative;
     color: black;
+    @media screen and(min-width:600px){
+        height:0px;
+        display:none;
+    }
 `
 
 const SearchForm = styled.form`
-    margin-top:10px;
     border-radius:16px;
     background:grey;
     width:230px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    @media screen and (min-width:750px){
-        position: absolute;
-        right: 50px 
+    @media screen and (min-width:600px){
+        // position: absolute;
+        // right: 50px 
+        display:none;
     }
 `
 
@@ -341,7 +376,7 @@ const DrawerCartNum = styled.div`
     width: 20px; 
 `
 
-const BottomContainer = styled.div`
-    width: 100%;
-    height: 50px;
-`
+// const BottomContainer = styled.div`
+//     width: 100%;
+//     height: 50px;
+// `

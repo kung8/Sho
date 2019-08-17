@@ -2,12 +2,13 @@
     text-decoration: none;
 }
 
-.Header-Body {
-    height:225px;
-}
 
 .Top-Nav {
     display:flex;
+    width: 450px;
+    margin-right: 20px;
+    justify-content: space-evenly;
+    align-items:center;
 }
 
 .Bottom-Nav {
@@ -16,11 +17,7 @@
     align-items: center;
 }
 
-@media screen and (max-width:499px){
-    .Header-Body {
-        height:175px;
-    }
-
+@media screen and (max-width:599px){
     .Top-Nav {
         display:none;
     }
@@ -45,12 +42,23 @@
 .DrawerOpen {
     animation:open 1s;
     transition-timing-function: ease-in-out; 
+    transition: transform 1s;
     
 }
 
 .DrawerClose {
     animation:close 1s;
     transition-timing-function: ease-in-out
+}
+
+.SearchOpen {
+    animation:searchOpen 3s;
+    transition-timing-function: ease-out;
+}
+
+.SearchClose {
+    animation:searchClose 1s;
+    transition-timing-function: ease-in-out;
 }
 
 @keyframes open {
@@ -67,5 +75,32 @@
     } 
     to {
         height:0px;
+    }
+}
+
+@keyframes searchOpen {
+    0% {
+        width:0px;
+    }
+    25% {
+        width:60px;
+    }
+    50% {
+        width:120px;
+    }
+    75% {
+        width:180px;
+    }
+    100% {
+        width:240px;
+    }
+}
+
+@keyframes searchClose {
+    from {
+        width:240px;
+    }
+    to {
+        width:0px;
     }
 }

@@ -88,13 +88,16 @@ export default connect(mapStateToProps)(Cart)
 
 
 const Body = styled.div`
-    min-height:calc(100vh - 330px);
+    min-height:calc(100vh - 225px);
     display:flex;
     flex-direction:column;
     align-items:center;
     margin-bottom:30px;
     max-width:100vw;
     width:100%;
+    @media screen and(min-width:600px){
+        min-height:calc(100vh - 180px);
+    }
 `
 
 const CartTitle = styled.h1`

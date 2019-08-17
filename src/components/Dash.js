@@ -29,6 +29,7 @@ const Body = styled.div`
     display:flex;
     flex-direction:column;
     max-width:100vw;
+    min-height:calc(100vh - 225px);
     @media screen and (min-height:1366px){
         height:calc(100vh - 329px)
     }

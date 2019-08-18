@@ -72,18 +72,18 @@ function Social() {
     const mappedSocial = socialArr.map(post => <Post post={post} handleModal={handleModal} />)
 
     return (
-        <div style={{ minHeight: 'calc(100vh - 225px)', background: 'red', position: 'relative' }}>
+        <div style={{ minHeight: 'calc(100vh - 225px)', position: 'relative' }}>
             <div onClick={()=>handleModal()} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', opacity: modal && 0.5 }}>
                 {mappedSocial}
             </div>
             {modal &&
-                <div style={{ height: 500, width: 700, background: 'white', position: 'absolute', display: 'flex', left: 'calc(50vw - 350px)', top: 'calc(100vh - 650px)', justifyContent: 'space-between' }}>
+                <div style={{ height: 500, width: 700, background: 'darkgrey', position: 'absolute', display: 'flex', left: 'calc(50vw - 350px)', top: 'calc(100vh - 650px)', justifyContent: 'space-between' }}>
                     <div style={{ padding: 10, borderRight: '1px solid black',position:'relative' }}>
                         {selectedPost.type === 'img' ? <img style={{ height: 400, width: 350 }} src={selectedPost.img} /> : <video src={selectedPost.video} />}
                         <h3 style={{padding:5,fontSize:18}}>{selectedPost.text}</h3>
                         <div onClick={()=>handleModal()} style={{position:'absolute',top:20,left:20,fontSize:30,color:'red'}}>X</div>
                     </div>
-                    <div style={{ background: 'white', width: 350, height: '100%' }}>
+                    <div style={{width: 350, height: '100%' }}>
                         <h1 style={{ textAlign: 'center', fontSize: 30, paddingTop: 10, paddingBottom: 10, borderBottom: '1px solid black' }}>Comments</h1>
                         <div style={{height:'calc(100% - 90px)'}}></div>
                         <form style={{width:'100%',display:'flex'}}>

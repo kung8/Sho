@@ -8,7 +8,7 @@ import Cart from './components/Cart/Cart'
 import Dash from './components/Dash'
 import Product from './components/Product/Product'
 import Products from './components/Product/Products'
-import Social from './components/Social'
+import Social from './components/Social/Social'
 
 export default (
     <Switch>

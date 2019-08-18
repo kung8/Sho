@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import Post from './Post'
 
 function Social() {
     const [socialArr, setSocial] = useState([])
-    const [image, seeImage] = useState(false)
-    const [video, seeVideo] = useState(false)
-
+    // const [image, seeImage] = useState(false)
+    // const [video, seeVideo] = useState(false)
+    const [modal, seeModal] = useState(false)
+    const [selectedPost, selectPost] = useState({})
     useEffect(() => {
         setSocial([
             {
@@ -59,27 +61,41 @@ function Social() {
         ])
     }, [])
 
-    const viewPic = () => {
-        // console.log('I hit img')
-        seeImage(!image)
+    const handleModal = (props) => {
+        console.log('hit this!')
+        seeModal(!modal)
+        if (props) {
+            selectPost(props)
+        }
     }
 
-    const viewVid = () => {
-        // console.log('I hit vid')
-        seeVideo(!video)
-    }
+    const mappedSocial = socialArr.map(post => <Post post={post} handleModal={handleModal} />)
 
-    const mappedSocial = socialArr.map(post => {
-        if (post.type === 'img') return <img onClick={() => viewPic()} style={{ marginTop:10,marginBottom:10,height: 350, width: 350 }} src={post.img} alt="" />
-        else if (post.type === 'video') return <iframe onClick={() => viewVid()} style={{ marginTop:10,marginBottom:10,width: 350, height: 350 }} src={post.video}></iframe>
-    })
     return (
-        <div style={{ minHeight: 'calc(100vh - 225px)', background: 'red' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
+        <div style={{ minHeight: 'calc(100vh - 225px)', background: 'red', position: 'relative' }}>
+            <div onClick={()=>handleModal()} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', opacity: modal && 0.5 }}>
                 {mappedSocial}
             </div>
+            {modal &&
+                <div style={{ height: 500, width: 700, background: 'white', position: 'absolute', display: 'flex', left: 'calc(50vw - 350px)', top: 'calc(100vh - 650px)', justifyContent: 'space-between' }}>
+                    <div style={{ padding: 10, borderRight: '1px solid black',position:'relative' }}>
+                        {selectedPost.type === 'img' ? <img style={{ height: 400, width: 350 }} src={selectedPost.img} /> : <video src={selectedPost.video} />}
+                        <h3 style={{padding:5,fontSize:18}}>{selectedPost.text}</h3>
+                        <div onClick={()=>handleModal()} style={{position:'absolute',top:20,left:20,fontSize:30,color:'red'}}>X</div>
+                    </div>
+                    <div style={{ background: 'white', width: 350, height: '100%' }}>
+                        <h1 style={{ textAlign: 'center', fontSize: 30, paddingTop: 10, paddingBottom: 10, borderBottom: '1px solid black' }}>Comments</h1>
+                        <div style={{height:'calc(100% - 90px)'}}></div>
+                        <form style={{width:'100%',display:'flex'}}>
+                            <input style={{fontSize:30,height:40,width:'90%',outline:'none'}}/>
+                            <button style={{outline:'none'}}>Send</button>
+                        </form>
+                    </div>
+                </div>
+            }
         </div>
     )
 }
 
 export default Social
+

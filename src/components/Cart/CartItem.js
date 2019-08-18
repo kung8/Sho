@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './Product.css'
+import '../Product/Product.css'
 import styled from 'styled-components'
 import axios from 'axios'
 

@@ -5,10 +5,3 @@ input[type=number]::-webkit-outer-spin-button {
    right:3px;
    top:5px;
 }
-
-
-/* input[type=number]::-webkit-inner-spin-button:hover, 
-input[type=number]::-webkit-outer-spin-button:hover {
-   transform: scale(1.15);
-   color:red;
-} */

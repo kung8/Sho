@@ -185,7 +185,6 @@ function Header(props) {
                 </DrawerContainer>
 
                 <MiddleContainer>
-                    {/* <Link className='Link' to='/' ><Logo>SHO</Logo></Link> */}
                     <SearchForm>
                         <SearchInput />
                         <SearchIcon className={search}></SearchIcon>
@@ -259,6 +258,9 @@ const MainBody = styled.div`
     width: 100vw;
     position: relative;
     height:150px;
+    @media (min-width:600px){
+        height:75px
+    }
 `
 
 const TopContainer = styled.div`
@@ -268,6 +270,9 @@ const TopContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (min-width:600px){
+        min-height:75px;
+    }
 `
 
 const TopUsername = styled.div`
@@ -301,10 +306,6 @@ const MiddleContainer = styled.div`
     justify-content: center;
     position: relative;
     color: black;
-    @media screen and(min-width:600px){
-        height:0px;
-        display:none;
-    }
 `
 
 const SearchForm = styled.form`
@@ -315,8 +316,6 @@ const SearchForm = styled.form`
     align-items:center;
     justify-content:space-between;
     @media screen and (min-width:600px){
-        // position: absolute;
-        // right: 50px 
         display:none;
     }
 `

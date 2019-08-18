@@ -6,3 +6,9 @@ input[type=number]::-webkit-outer-spin-button {
    top:5px;
 }
 
+
+/* input[type=number]::-webkit-inner-spin-button:hover, 
+input[type=number]::-webkit-outer-spin-button:hover {
+   transform: scale(1.15);
+   color:red;
+} */

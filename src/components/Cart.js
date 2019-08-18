@@ -73,7 +73,6 @@ function Cart(props) {
                 <HR />
             </CalculationContainer>
             <Checkout total={total} pay={pay} />
-            {/* <Button onClick={handleCheckout}>Checkout</Button> */}
         </Body>
     )
 }

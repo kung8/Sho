@@ -12,10 +12,10 @@ function Product(props) {
         price: '$30',
         details: 'Here is some description about the product. Here is some description about the product. Here is some description about the product. Here is some description about the product.Here is some description about the product.Here is some description about the product.Here is some description about the product. Here is some description about the product.Here is some description about the product.',
         images: [
-            'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTkKMQnguUTq9o1PdiP_10DKkPB7q22pe_J8w_R_cRjCeBAzvZpM43QjztjsHR2UYJd0VqX0qri-XftHuCbV7AnNBdN1yJXpe76q3V7G1zJR2vwDZwvjaos&usqp=CAc',
-            'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcT2_-2MPmhMn7YFkObzyKUh1XQjtTj3MWjV6ynCmOZKaNMJLjWc3QOpS4gvRMsvGztT1ikF8emOL0201jjE6xPv4xBRmMUCW2uh32GMh9fkzQtS5UzX14T07g&usqp=CAE',
-            'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSCJdaIb2G7JvG2e7n-2jD1HjdcXJwB4BnO-TqoauzTZdyV6uLl2wEhfPh6O8sfKJ6hxJlT_ExW98VgORzatbGkLexsTYl7S7jhfBxGUq_NMHD4t-pXzhGKWQ&usqp=CAE',
-            'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRghtz04eQd8LUDM7DZ-xs7OTSmr5BdrvVHmeMmWfrNHlN7AhDryWMJ-1WBkLuVqQh5E1alpbtROdpv98o3RrOuosMu9kq5EiDbaRtW0rM&usqp=CAE'
+            'https://images.unsplash.com/photo-1505632958218-4f23394784a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+            'https://images.unsplash.com/photo-1522962506050-a2f0267e4895?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+            'https://images.unsplash.com/photo-1524148327109-98933ca00d2e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+            'https://images.unsplash.com/photo-1485043433441-db091a258e5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
         ]
     })
 
@@ -23,6 +23,7 @@ function Product(props) {
     const [selectedColor, selectColor] = useState(0)
     const [selectedSize, selectSize] = useState(0)
     const [selectedQty, selectQty] = useState(0)
+    const [smallPic,selectSmallPic] = useState(false)
 
     const { id } = props.match.params
     console.log(id)
@@ -31,20 +32,20 @@ function Product(props) {
     //     setProduct(item)
     // })
 
-    let imgArr = product.images.map((img, index) => <img onClick={() => selectPic(index)} key={index} src={img} style={{ border: selectedPic === index && 'blue solid 3px', height: 100, width: 75 }} alt='pic' />)
+    let imgArr = product.images.map((img, index) => <img className='Grow2' onClick={() => selectPic(index)} key={index} src={img} style={{ border: selectedPic === index && 'blue solid 3px', opacity:selectedPic !== index && 0.5,height: 100, width: 75 }} alt='pic' />)
 
     let smallImgArr = product.images.map((img, index) => {
-        return (<SmallImgDots onClick={() => selectPic(index)} key={index} style={{ background: selectedPic === index ? 'grey' : 'lightgrey', border: selectedPic === index ? 'black 2px solid' : 'black 2px solid' }}></SmallImgDots>)
+        return (<SmallImgDots className='Grow3' onClick={() => selectPic(index)} key={index} style={{ background: selectedPic === index ? 'grey' : 'lightgrey', border: selectedPic === index ? 'black 2px solid' : 'black 2px solid' }}></SmallImgDots>)
     })
 
-    let colorArr = product.colors.map((color, index) => <div onClick={() => selectColor(index)} style={{ marginRight: 50, borderPadding: 5, border: selectedColor === index && 'black solid 3px', background: color, height: 35, width: 35, borderRadius: '50%' }}></div>)
+    let colorArr = product.colors.map((color, index) => <div className='Grow2' onClick={() => selectColor(index)} style={{ marginRight: 50, borderPadding: 5, border: selectedColor === index && 'black solid 3px', background: color, height: 35, width: 35, borderRadius: '50%' }}></div>)
 
-    let sizeArr = product.sizes.map((size, index) => <SmallSizes onClick={() => selectSize(index)} style={{ border: selectedSize === index && 'grey solid 3px', background: selectedSize === index && 'lightgrey' }}>{size}</SmallSizes>)
+    let sizeArr = product.sizes.map((size, index) => <SmallSizes className='Grow2' onClick={() => selectSize(index)} style={{ border: selectedSize === index && 'grey solid 3px', background: selectedSize === index && 'lightgrey' }}>{size}</SmallSizes>)
 
     return (
         <Body>
             <BigImageContainer>
-                <BigImageSelected src={product.images[selectedPic]} alt="product" />
+                <BigImageSelected className='Zoom' src={product.images[selectedPic]} alt="product" />
                 <BigSmallImageContainer>{imgArr}</BigSmallImageContainer>
             </BigImageContainer>
 
@@ -61,7 +62,7 @@ function Product(props) {
                     </div>
                     <BigQtyHolder>
                         <BigSpanTitle>Qty</BigSpanTitle>
-                        <QtyInput onChange={(e) => selectQty(e.target.value)} value={selectedQty} type='number' min='0' />
+                        <QtyInput className='Grow2' onChange={(e) => selectQty(e.target.value)} value={selectedQty} type='number' min='0' />
                     </BigQtyHolder>
                 </BigProductColorAndQtyContainer>
 
@@ -70,7 +71,7 @@ function Product(props) {
                         <BigSpanTitle>Sizes</BigSpanTitle>
                         <div style={{ display: 'flex', width: 350, position: 'relative' }}>{sizeArr}</div>
                     </div>
-                    <BigAddButton>ADD TO CART</BigAddButton>
+                    <BigAddButton className='Grow2'>ADD TO CART</BigAddButton>
                 </BigProductSizeAndAddContainer>
 
                 <BigProductDescriptionContainer>
@@ -84,18 +85,19 @@ function Product(props) {
                 </div>
             </BigProductInfoContainer>
 
-            <SmallProductNameAndPriceContainer>
+            <SmallProductNameAndPriceContainer onClick={()=> {if(smallPic){selectSmallPic(false)}}} style={{opacity:smallPic&&'0.1'}}>
                 <SmallProductName>{product.name}</SmallProductName>
                 <SmallProductPrice>{product.price}</SmallProductPrice>
             </SmallProductNameAndPriceContainer>
+            
             <SmallImageContainer>
-                <SmallImageSelected src={product.images[selectedPic]} alt="product" />
+                <SmallImageSelected style={{transform:smallPic?'scale(1.05)':'scale(1.0)'}} onClick={()=>selectSmallPic(!smallPic)} src={product.images[selectedPic]} alt="product" />
                 <SmallImgDotContainer>
                     {smallImgArr}
                 </SmallImgDotContainer>
             </SmallImageContainer>
 
-            <SmallProductInfoContainer>
+            <SmallProductInfoContainer onClick={()=> {if(smallPic){selectSmallPic(false)}}} style={{opacity:smallPic&&'0.1'}}>
                 <SmallProductDescriptionContainer>
                     <SmallSpanTitle>Item Description</SmallSpanTitle>
                     <p>{product.details}</p>
@@ -119,7 +121,7 @@ function Product(props) {
                 </SmallQtyHolder>
             
             </SmallProductInfoContainer>
-            <SmallAddButton>ADD TO CART</SmallAddButton>
+            <SmallAddButton style={{opacity:smallPic&&'0.1'}} className='Grow2'>ADD TO CART</SmallAddButton>
 
 
         </Body>
@@ -137,6 +139,11 @@ const Body = styled.div`
     margin-bottom: 50px;
     max-width:100vw;
     font-family: Arial,Helvetica,sans-serif;
+    @media (min-width:600px){
+        margin-top:50px;
+        height:100vh;
+    }
+
     @media screen and (min-width:1060px){
         flex-direction:row;
         justify-content: space-around;
@@ -286,8 +293,23 @@ const SmallImageSelected = styled.img`
     @media screen and (min-width:410px){
         width:400px;
     }
+
+    @media (min-width:600px){
+        &:hover{
+            transform:scale(1.45);
+            z-index:1
+        }
+    }
+    
+    @media (min-width:740px){
+        &:hover{
+            transform:scale(1.8)
+        }
+    }
+
     @media screen and (min-width:1060px){
         display:none;
+        
     }
 `
 
@@ -310,6 +332,8 @@ const SmallImgDots = styled.div`
     @media screen and (min-width:1060px){
         display:none;
     } 
+
+    
 `
 
 const SmallProductInfoContainer = styled.div`

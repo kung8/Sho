@@ -59,11 +59,11 @@ function CartItem(props) {
     }
 
     let sizesArr = sizes.map((size,index)=>{
-        return<CartItemSizes key={index} onClick={()=>sizeSelected(size)} >{size}</CartItemSizes>
+        return<CartItemSizes className='Grow2' key={index} onClick={()=>sizeSelected(size)} >{size}</CartItemSizes>
     })
     
     let colorsArr = colors.map((color,index)=>{
-        return <CartItemColors key={index} onClick={()=>colorSelected(color)} style={{background:color}}></CartItemColors>
+        return <CartItemColors className='Grow2' key={index} onClick={()=>colorSelected(color)} style={{background:color}}></CartItemColors>
     })
 
     return (
@@ -72,7 +72,7 @@ function CartItem(props) {
             <CartItemContainer>
                 <SmallHR style={styles.ifFirst} />
                 <div style={styles.firstImage}>
-                    <Img src={image} alt='product image' />
+                    <Img className='Grow2' src={image} alt='product image' />
                 </div>
                 <CartItemInfoContainer>
                     <CartItemNameAndPriceContainer>
@@ -82,21 +82,21 @@ function CartItem(props) {
                     <CartItemCategoryContainer>
                         <CartItemCategory>Size:</CartItemCategory>
                         
-                        {!sizeBox && <CartItemSize onClick={showSizes}>{selectedSize}</CartItemSize>}
+                        {!sizeBox && <CartItemSize className='Grow2' onClick={showSizes}>{selectedSize}</CartItemSize>}
                         {sizeBox && <CartItemSizesContainer onMouseLeave={showSizes}>{sizesArr}</CartItemSizesContainer>}
 
                     </CartItemCategoryContainer>
                     <CartItemCategoryContainer>
                         <CartItemCategory>Color:</CartItemCategory>
-                        {!colorBox && <CartItemColor onClick={showColors} style={{background: selectedColor}}></CartItemColor>}
+                        {!colorBox && <CartItemColor className='Grow2' onClick={showColors} style={{background: selectedColor}}></CartItemColor>}
                         {colorBox && <CartItemColorsContainer onMouseLeave={showColors}>{colorsArr}</CartItemColorsContainer>}
                     </CartItemCategoryContainer>
                     <CartItemQtyAndRemoveContainer>
                         <CartItemQtyContainer>
                             <CartItemCategory>Qty:</CartItemCategory>
-                            <CartItemQtyInput onChange={e => setQuantity(e.target.value)} min='0' type='number' value={quantity} />
+                            <CartItemQtyInput className='Grow2' onChange={e => setQuantity(e.target.value)} min='0' type='number' value={quantity} />
                         </CartItemQtyContainer>
-                        <CartItemRemoveButton>Remove from Cart</CartItemRemoveButton>
+                        <CartItemRemoveButton className='Grow3'><i className="fas fa-trash" style={{marginRight:5}}></i>Remove from Cart</CartItemRemoveButton>
                     </CartItemQtyAndRemoveContainer>
                 </CartItemInfoContainer>
                 <SmallHR style={styles.ifLast} />
@@ -250,13 +250,13 @@ const CartItemQtyInput = styled.input`
     text-align:center;
 `
 
-const CartItemRemoveButton = styled.button`
-    outline: none;
-    color: white;
-    border-radius: 16px;
-    background: blue;
-    width: 150px;
-    height: 30px;
+const CartItemRemoveButton = styled.div`
+    // outline: none;
+    color: black;
+    // border-radius: 16px;
+    // background: blue;
+    // width: 150px;
+    // height: 30px;
 `
 
 const BigHR = styled.hr`
